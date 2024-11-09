@@ -19,10 +19,10 @@ jobs:
 
       - name: Upgrade pip and install dependencies
         run: |
-          python -m venv env
+          python3 -m venv env
           # Activa el entorno virtual
           . env/bin/activate
-          python -m pip install --upgrade pip
+          python3 -m pip install --upgrade pip
           # Instala las dependencias en el entorno virtual
           pip install mkdocs==1.4.3 mkdocs-material==9.1.16
           pip install mkdocs-static-i18n==1.2.3
