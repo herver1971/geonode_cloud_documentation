@@ -20,10 +20,9 @@ jobs:
       - name: Upgrade pip and install dependencies
         run: |
           python -m venv env
-          # Activa el entorno virtual
-          . env/bin/activate
+          . env/bin/activate  # Activa el entorno virtual
           python -m pip install --upgrade pip
-          # Instala las dependencias desde requirements.txt
+          # Instala las dependencias desde el nuevo requirements.txt
           pip install -r requirements.txt
           # Verifica que el plugin esté instalado en el entorno virtual
           pip show mkdocs-static-i18n
