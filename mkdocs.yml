@@ -1,4 +1,4 @@
-site_name: GeoNode Cloud 
+site_name: GeoNode Cloud
 site_url: https://kan.com.ar/
 nav:
   - Home: index.md
@@ -6,7 +6,7 @@ nav:
   - Architecture & Technology: architecture/index.md
   - Deployment: deployment/index.md
 
-theme: 
+theme:
   name: 'material'
   logo: assets/images/logo.png
   favicon: assets/images/favicon.png
@@ -19,6 +19,11 @@ theme:
 
 plugins:
   - search
+  - mkdocs-static-i18n:
+      docs_dir: docs
+      locales:
+        - en
+        - es
 extra:
   homepage: https://kan.com.ar
   analytics:
@@ -30,6 +35,3 @@ extra:
     - name: Spanish
       lang: es
 repo_url: https://github.com/Kan-T-IT/geonode_cloud_documentation
-
-
-  

@@ -1,4 +1,4 @@
-name: ci 
+name: ci
 on:
   push:
     branches:
@@ -9,16 +9,40 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
-      - uses: actions/cache@v4
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-      - run: pip install mkdocs-material 
-      - run: mkdocs gh-deploy --force
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs-material mkdocs-static-i18n transifex-client
+
+      - name: Extract translations
+        run: |
+          # Run MkDocs with the i18n plugin to generate .pot files
+          mkdocs build --dirtyreload
+          # This will create .pot files in the 'locales' folder
+
+      - name: Prepare Transifex configuration
+        run: |
+          tx init --skipsetup
+          echo "[main]\nhost = https://www.transifex.com\n" > ~/.transifexrc
+          # Add your Transifex project and settings here
+          echo -e "[geonode_cloud_documentation]\nlang_map = es:es,en:en\ntype = PO" > .tx/config
+
+      - name: Push source content to Transifex
+        run: tx push -s  # Push source .pot files to Transifex
+
+      - name: Pull translations from Transifex
+        run: tx pull -a  # Pull all translations
+
+      - name: Build translated site
+        run: |
+          mkdocs build --clean  # Build the site with translations
+
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
