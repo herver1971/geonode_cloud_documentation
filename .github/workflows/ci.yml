@@ -22,29 +22,31 @@ jobs:
           pip install mkdocs-material
           pip install mkdocs-static-i18n
           pip install transifex-client
+          # Verificar que el plugin se haya instalado
+          pip show mkdocs-static-i18n
 
       - name: Extract translations
         run: |
           # Run MkDocs with the i18n plugin to generate .pot files
-          mkdocs build --dirty
-          # This will create .pot files in the 'locales' folder
+          mkdocs build --clean
+          # Esto creará los archivos .pot en la carpeta 'locales'
 
       - name: Prepare Transifex configuration
         run: |
           tx init --skipsetup
           echo "[main]\nhost = https://www.transifex.com\n" > ~/.transifexrc
-          # Add your Transifex project and settings here
+          # Agrega la configuración de tu proyecto Transifex aquí
           echo -e "[geonode_cloud_documentation]\nlang_map = es:es,en:en\ntype = PO" > .tx/config
 
       - name: Push source content to Transifex
-        run: tx push -s  # Push source .pot files to Transifex
+        run: tx push -s  # Subir archivos .pot a Transifex
 
       - name: Pull translations from Transifex
-        run: tx pull -a  # Pull all translations
+        run: tx pull -a  # Descargar todas las traducciones
 
       - name: Build translated site
         run: |
-          mkdocs build --clean  # Build the site with translations
+          mkdocs build --clean  # Construir el sitio con las traducciones
 
       - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force
