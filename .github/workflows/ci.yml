@@ -24,7 +24,7 @@ jobs:
       - name: Extract translations
         run: |
           # Run MkDocs with the i18n plugin to generate .pot files
-          mkdocs build --dirtyreload
+          mkdocs build --dirty
           # This will create .pot files in the 'locales' folder
 
       - name: Prepare Transifex configuration
