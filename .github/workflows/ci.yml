@@ -17,24 +17,27 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install dependencies
+      - name: Upgrade pip and install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs-material
-          pip install mkdocs-static-i18n
+          # Instala versiones específicas para evitar problemas de compatibilidad
+          pip install mkdocs==1.4.3 mkdocs-material==9.1.16
+          pip install mkdocs-static-i18n==1.2.3
           pip install transifex-client
+          # Verifica que el plugin se haya instalado correctamente
+          pip show mkdocs-static-i18n
 
       - name: Extract translations
         run: |
-          # Run MkDocs with the i18n plugin to generate .pot files
+          # Ejecución de MkDocs con el plugin i18n
           mkdocs build --clean
-          # Esto creará los archivos .pot en la carpeta 'locales'
+          # Esto debería crear los archivos .pot en la carpeta 'locales'
 
       - name: Prepare Transifex configuration
         run: |
           tx init --skipsetup
           echo "[main]\nhost = https://www.transifex.com\n" > ~/.transifexrc
-          # Agrega la configuración de tu proyecto Transifex aquí
+          # Configura el archivo Transifex
           echo -e "[geonode_cloud_documentation]\nlang_map = es:es,en:en\ntype = PO" > .tx/config
 
       - name: Push source content to Transifex
