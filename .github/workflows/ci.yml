@@ -23,22 +23,14 @@ jobs:
           . env/bin/activate
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip show mkdocs-static-i18n
 
-      - name: Create locale directory
-        run: mkdir -p locale  # Crea la carpeta si no existe
-
-      - name: Extract translations
+      - name: Create locale directory and extract translations
         run: |
+          mkdir -p locale  # Crea la carpeta si no existe
           . env/bin/activate
-          mkdocs build
-          echo "Archivos generados en 'locale':"
+          md2po extract "docs/**/*.md" -o locale/
+          echo "Archivos .po generados en 'locale':"
           ls -R locale || echo "No se generaron archivos en la carpeta locale"
-
-      - name: Verificar archivos .po
-        run: |
-          . env/bin/activate
-          find locale -type f -name "*.po" || echo "No se encontraron archivos .po en locale"
 
       - name: Upload PO files as artifacts
         uses: actions/upload-artifact@v4
@@ -49,7 +41,7 @@ jobs:
       - name: Build translated site
         run: |
           . env/bin/activate
-          mkdocs build --dirty
+          mkdocs build
 
       - name: Deploy to GitHub Pages
         run: |
