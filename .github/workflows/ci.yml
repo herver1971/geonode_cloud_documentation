@@ -54,7 +54,7 @@ jobs:
       - name: Build translated site
         run: |
           . env/bin/activate
-          mkdocs build --clean  # Construir el sitio con las traducciones
+          mkdocs build --dirty  # Construir el sitio con las traducciones
 
       - name: Deploy to GitHub Pages
         run: |
