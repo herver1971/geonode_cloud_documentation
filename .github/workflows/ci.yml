@@ -30,7 +30,7 @@ jobs:
       - name: Extract translations
         run: |
           . env/bin/activate
-          mkdocs build --clean
+          mkdocs build
           # Esto debería crear los archivos .pot en la carpeta 'locales'
 
       - name: List translation files
