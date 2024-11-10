@@ -38,6 +38,9 @@ extra:
   alternate:
     - name: English
       lang: en
+      link: /
     - name: Spanish
       lang: es
+      link: /es/
+
 repo_url: https://github.com/Kan-T-IT/geonode_cloud_documentation

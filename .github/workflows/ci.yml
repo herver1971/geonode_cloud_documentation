@@ -29,6 +29,4 @@ jobs:
         find docs -name "*.md" -exec md2po {} -o locale/$(basename {} .md).po \;
 
     - name: Build MkDocs site
-      run: |
-        mkdocs build --clean
-        mkdocs build -f mkdocs.yml --config-file mkdocs.yml -d site/es -l es
+      run: mkdocs build --clean
