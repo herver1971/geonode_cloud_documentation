@@ -30,13 +30,25 @@ jobs:
       - name: Extract translations
         run: |
           . env/bin/activate
+          # Construye el sitio sin --clean para mantener archivos generados (como .po)
           mkdocs build
-          # Esto debería crear los archivos .pot en la carpeta 'locales'
+          # Esto debería crear los archivos .po en la carpeta 'locale'
 
       - name: List translation files
         run: |
           . env/bin/activate
-          ls -R locale
+          ls -R locale  # Listar archivos para verificar si los .po están presentes
+
+      - name: Verificar archivos .po
+        run: |
+          . env/bin/activate
+          find locale -type f -name "*.po" || echo "No se encontraron archivos .po"
+
+      - name: Upload PO files as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: locale_files
+          path: locale/**/*.po  # Subir todos los archivos .po de la carpeta locale como artefactos
 
       - name: Build translated site
         run: |
