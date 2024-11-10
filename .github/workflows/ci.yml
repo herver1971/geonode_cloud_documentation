@@ -26,8 +26,7 @@ jobs:
     - name: Convert Markdown to .po files
       run: |
         mkdir -p locale
-        sphinx-intl update -p locale -l es -l en
-        python -m markdown_to_po docs locale
+        md2po docs locale
 
     - name: Build MkDocs site
       run: |
