@@ -4,3 +4,5 @@ mkdocs-static-i18n
 mdpo
 pymd4c
 setuptools
+markdown-to-po
+sphinx-intl
