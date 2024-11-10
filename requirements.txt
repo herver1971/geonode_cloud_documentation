@@ -1,5 +1,5 @@
 mkdocs
 mkdocs-material
 mkdocs-static-i18n
-md-po
+mdpo
 setuptools
