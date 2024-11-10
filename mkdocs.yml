@@ -29,9 +29,6 @@ plugins:
         - locale: es
           name: Español
           build: true
-        - locale: fr
-          name: Francais
-          build: true
 
 extra:
   homepage: https://kan.com.ar
@@ -41,12 +38,7 @@ extra:
   alternate:
     - name: English
       lang: en
-      link: /
     - name: Spanish
       lang: es
-      link: /es/
-    - name: French
-      lang: fr
-      link: /fr/
 
 repo_url: https://github.com/Kan-T-IT/geonode_cloud_documentation
