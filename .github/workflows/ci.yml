@@ -40,8 +40,10 @@ jobs:
       - name: Convert Markdown to .po files
         run: |
           mkdir -p locale
-          find docs -name "*.md" -exec md2po {} -o locale/$(basename {} .md).po \;
-        # Guarda los archivos .po generados en el directorio `locale`
+          find docs -name "*.md" -exec md2po {} -o locale/{}.po \;
+
+      - name: Verify .po files
+        run: ls -R locale
 
       - name: Build MkDocs site
         run: mkdocs build --clean
