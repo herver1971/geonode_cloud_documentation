@@ -36,7 +36,7 @@ jobs:
       - name: Prepare Transifex configuration
         run: |
           . env/bin/activate
-          tx init --skipsetup
+          tx init
           echo "[main]\nhost = https://www.transifex.com\n" > ~/.transifexrc
           # Configura el archivo Transifex
           echo -e "[geonode_cloud_documentation]\nlang_map = es:es,en:en\ntype = PO" > .tx/config
