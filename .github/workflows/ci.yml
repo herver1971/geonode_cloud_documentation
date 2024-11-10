@@ -26,7 +26,7 @@ jobs:
     - name: Convert Markdown to .po files
       run: |
         mkdir -p locale
-        md2po docs locale
+        find docs -name "*.md" -exec md2po {} -o locale/$(basename {} .md).po \;
 
     - name: Build MkDocs site
       run: |
