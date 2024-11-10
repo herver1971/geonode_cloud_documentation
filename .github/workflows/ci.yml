@@ -20,29 +20,25 @@ jobs:
       - name: Upgrade pip and install dependencies
         run: |
           python -m venv env
-          . env/bin/activate  # Activa el entorno virtual
+          . env/bin/activate
           python -m pip install --upgrade pip
-          # Instala las dependencias desde el nuevo requirements.txt
           pip install -r requirements.txt
-          # Verifica que el plugin esté instalado en el entorno virtual
           pip show mkdocs-static-i18n
+
+      - name: Create locale directory
+        run: mkdir -p locale  # Crea la carpeta si no existe
 
       - name: Extract translations
         run: |
           . env/bin/activate
-          # Construye el sitio sin --clean para mantener archivos generados (como .po)
           mkdocs build
-          # Esto debería crear los archivos .po en la carpeta 'locale'
-
-      - name: List translation files
-        run: |
-          . env/bin/activate
-          ls -R locale  # Listar archivos para verificar si los .po están presentes
+          echo "Archivos generados en 'locale':"
+          ls -R locale || echo "No se generaron archivos en la carpeta locale"
 
       - name: Verificar archivos .po
         run: |
           . env/bin/activate
-          find locale -type f -name "*.po" || echo "No se encontraron archivos .po"
+          find locale -type f -name "*.po" || echo "No se encontraron archivos .po en locale"
 
       - name: Upload PO files as artifacts
         uses: actions/upload-artifact@v3
@@ -53,7 +49,7 @@ jobs:
       - name: Build translated site
         run: |
           . env/bin/activate
-          mkdocs build --dirty  # Construir el sitio con las traducciones
+          mkdocs build --dirty
 
       - name: Deploy to GitHub Pages
         run: |
