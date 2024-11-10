@@ -41,7 +41,7 @@ jobs:
           find locale -type f -name "*.po" || echo "No se encontraron archivos .po en locale"
 
       - name: Upload PO files as artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: locale_files
           path: locale/**/*.po  # Subir todos los archivos .po de la carpeta locale como artefactos
