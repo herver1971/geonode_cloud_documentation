@@ -33,6 +33,11 @@ jobs:
           mkdocs build --clean
           # Esto debería crear los archivos .pot en la carpeta 'locales'
 
+      - name: List translation files
+        run: |
+          . env/bin/activate
+          ls -R locale
+
       - name: Build translated site
         run: |
           . env/bin/activate

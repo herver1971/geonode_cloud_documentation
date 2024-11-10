@@ -21,6 +21,7 @@ plugins:
   - search
   - i18n:
       docs_structure: suffix
+      output_folder: locale
       languages:
         - locale: en
           default: true
