@@ -19,16 +19,12 @@ theme:
 
 plugins:
   - search
-  - i18n:
-      docs_structure: suffix
+  - mkdocs-static-i18n:
+      default_language: en
       languages:
-        - locale: en
-          default: true
-          name: English
-          build: true
-        - locale: es
-          name: Español
-          build: true
+        en: English
+        es: Español
+      docs_structure: suffix
 
 extra:
   homepage: https://kan.com.ar
